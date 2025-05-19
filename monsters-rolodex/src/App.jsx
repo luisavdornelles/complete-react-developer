@@ -34,10 +34,11 @@ function App() {
     };
 
     return (
-        <>
+        <div className="app-container">
+            <h1 className="app-title">Monsters Rolodex</h1>
             <SearchBox onChangeHandler={filterMonsters} />
             <CardList monsters={filteredMonsters} />
-        </>
+        </div>
     );
 }
 
