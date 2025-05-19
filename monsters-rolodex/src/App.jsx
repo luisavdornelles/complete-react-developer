@@ -1,15 +1,6 @@
 import { useState, useEffect } from "react"; // useState is a hook that allows you to add state to functional components
 import "./App.css";
-
-const Card = (props) => {
-    return (
-        <div>
-            <img src={`https://robohash.org/${props.id}?set=set2`} alt="" />
-            <h3>{props.name}</h3>
-            <p>{props.email}</p>
-        </div>
-    );
-};
+import CardList from "./components/card-list/card-list.component";
 
 function App() {
     // https://react.dev/reference/react/useState
@@ -29,22 +20,9 @@ function App() {
             .then((data) => setMonsters(data));
     }, []);
 
-    // <> is a shorthand for <React.Fragment>
-    // React.Fragment is a component that allows you to group multiple elements without adding extra nodes to the DOM
-    // It is useful when you want to return multiple elements from a component without wrapping them in a div or other element
-    // It could be replaced with <React.Fragment> and </React.Fragment> or <Fragment> and </Fragment>
     return (
         <>
-            {monsters.map(({ name, email, id }, idx) => {
-                return (
-                    <Card
-                        key={`${name}-${idx}`}
-                        name={name}
-                        email={email}
-                        id={id}
-                    ></Card>
-                );
-            })}
+            <CardList monsters={monsters}></CardList>
         </>
     );
 }
