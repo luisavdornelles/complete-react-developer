@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"; // useState is a hook that allows you to add state to functional components
 import "./App.css";
 import CardList from "./components/card-list/card-list.component";
+import SearchBox from "./components/search-box/search-box.component";
 
 function App() {
     // https://react.dev/reference/react/useState
@@ -24,19 +25,18 @@ function App() {
             });
     }, []);
 
+    const filterMonsters = (event) => {
+        const searchString = event.target.value.toLocaleLowerCase();
+        const newFilteredMonsters = monsters.filter((monster) =>
+            monster.name.toLocaleLowerCase().includes(searchString)
+        );
+        setFilteredMonsters(newFilteredMonsters);
+    };
+
     return (
         <>
-            <input
-                type="search"
-                onChange={(event) => {
-                    const searchString = event.target.value.toLocaleLowerCase();
-                    const filteredMonsters = monsters.filter((monster) =>
-                        monster.name.toLocaleLowerCase().includes(searchString)
-                    );
-                    setFilteredMonsters(filteredMonsters);
-                }}
-            />
-            <CardList monsters={filteredMonsters}></CardList>
+            <SearchBox onChangeHandler={filterMonsters} />
+            <CardList monsters={filteredMonsters} />
         </>
     );
 }
