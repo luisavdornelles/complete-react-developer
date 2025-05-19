@@ -2,7 +2,12 @@ import { useState, useEffect } from "react"; // useState is a hook that allows y
 import "./App.css";
 
 const Card = (props) => {
-    return <div>{props.name}</div>;
+    return (
+        <div>
+            <h3>{props.name}</h3>
+            <p>{props.email}</p>
+        </div>
+    );
 };
 
 function App() {
@@ -12,12 +17,15 @@ function App() {
     // set functions, like setSomething(nextState):
     // The set function returned by useState lets you update the state to a different value and trigger a re-render.
     // You can pass the next state directly, or a function that calculates it from the previous state
-    const [arr, setArr] = useState(["a", "b", "c"]);
+    const [monsters, setMonsters] = useState([]);
 
     // useEffect is a hook that allows you to perform side effects in functional components
     // if an empty array is passed, it will run only once after the first render
+    // useEffect is used in this case to fetch data only once when the component mounts
     useEffect(() => {
-        console.log("useEffect");
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then((response) => response.json())
+            .then((data) => setMonsters(data));
     }, []);
 
     // <> is a shorthand for <React.Fragment>
@@ -26,17 +34,15 @@ function App() {
     // It could be replaced with <React.Fragment> and </React.Fragment> or <Fragment> and </Fragment>
     return (
         <>
-            {arr.map((name, idx) => {
-                return <Card key={`${name}-${idx}`} name={name}></Card>;
+            {monsters.map(({ name, email }, idx) => {
+                return (
+                    <Card
+                        key={`${name}-${idx}`}
+                        name={name}
+                        email={email}
+                    ></Card>
+                );
             })}
-
-            <button
-                onClick={() => {
-                    setArr((arr) => [...arr, "d"]);
-                }}
-            >
-                add letter
-            </button>
         </>
     );
 }
