@@ -4,6 +4,7 @@ import "./App.css";
 const Card = (props) => {
     return (
         <div>
+            <img src={`https://robohash.org/${props.id}?set=set2`} alt="" />
             <h3>{props.name}</h3>
             <p>{props.email}</p>
         </div>
@@ -34,12 +35,13 @@ function App() {
     // It could be replaced with <React.Fragment> and </React.Fragment> or <Fragment> and </Fragment>
     return (
         <>
-            {monsters.map(({ name, email }, idx) => {
+            {monsters.map(({ name, email, id }, idx) => {
                 return (
                     <Card
                         key={`${name}-${idx}`}
                         name={name}
                         email={email}
+                        id={id}
                     ></Card>
                 );
             })}
