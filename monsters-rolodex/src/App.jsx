@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState } from "react"; // useState is a hook that allows you to add state to functional components
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
+    // https://react.dev/reference/react/useState
+    // useState is a hook that allows you to add state to functional components
+    // It returns an array with two elements: the current state value and a function to update it
+    // The initial state is set to 0 in this case
+    // set functions, like setSomething(nextState):
+    // The set function returned by useState lets you update the state to a different value and trigger a re-render.
+    // You can pass the next state directly, or a function that calculates it from the previous state
     const [count, setCount] = useState(0);
 
     // <> is a shorthand for <React.Fragment>
